@@ -1,127 +1,133 @@
 import java.util.ArrayList;
 
 /**
- * I declare that this code was written by me.
+ 
+* I declare that this code was written by me.
  * I will not copy or allow others to copy my code.
  * I understand that copying code is considered as plagiarism.
  *
- * 20009334, 11 Aug 2021 2:03:12 pm
+ * 20038360, 11 Aug 2021 11:40:03 pm
  */
 
+/**
+ * I declare that this code was written by me. I will not copy or allow others
+ * to copy my code. I understand that copying code is considered as plagiarism.
+ *
+ * 20038360, 11 Aug 2021 11:40:03 pm
+ */
 public class C206_CaseStudy {
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		ArrayList<OrderBill> billList = new ArrayList<OrderBill>();
+		// TODO Auto-generated method stub
 
-		billList.add(new OrderBill("BB01013", "11-07-2021", 1,"Fried Rice","Coke","Grapes"));
-		billList.add(new OrderBill("BB01014", "09-08-2021", 2,"Vegetarian Bee Hoon","Hot Milk Tea","Apple"));
-
+		//Arraylist for menu items
+		
+		ArrayList<Items> itemList = new ArrayList<Items>();
+		
+		itemList.add(new Items(1, "WesternFood", "Spaghetti", 3.50));
+		itemList.add(new Items(2, "WesternFood", "Baked Rice", 4.50));
+		
 		int option = 0;
-
+		
 		while (option != 4) {
-
-			C206_CaseStudy.orderBill();
+			menu();
 			option = Helper.readInt("Enter an option > ");
 
 			if (option == 1) {
-				// View all items
-				C206_CaseStudy.viewOrderBill(billList);
-
-			} else if (option == 2) {
-				// Add a new item
-				OrderBill e = inputOrderBill();
-				C206_CaseStudy.addOrderBill(billList, e);
-
-
-			} else if (option == 3) {
-				// Delete item
-				// Add a new item
-				OrderBill e = inputOrderBill();
-				C206_CaseStudy.deleteOrderBill(billList,e);
-				
-			} else if (option == 4) {
+				//view menu item
+				C206_CaseStudy.viewItems(itemList);
+			}
+			
+			else if (option == 2) {
+				Items item = inputItem();
+				C206_CaseStudy.addItem(itemList, item);
+			}
+			else if (option == 3) {
+				C206_CaseStudy.deleteItem(itemList);
+			}
+			else if (option == 4) {
 				System.out.println("Bye!");
 			} else {
 				System.out.println("Invalid option");
 			}
-
+		
 		}
-
 	}
 
-	public static void orderBill() {
-		C206_CaseStudy.setHeader("Order Bill");
-		System.out.println("1. Add Order Bill");
-		System.out.println("2. View Order Bill");
-		System.out.println("3. Delete Order Bill");
+	public static void menu() {
+		C206_CaseStudy.setHeader("Menu Items");
+		System.out.println("1. View Menu Items");
+		System.out.println("2. Add Menu Items");
+		System.out.println("3. Delete Menu Items");
 		System.out.println("4. Quit");
 		Helper.line(50, "-");
 
 	}
 	
 	public static void setHeader(String header) {
-		Helper.line(50, "-");
+		Helper.line(80, "-");
 		System.out.println(header);
-		Helper.line(50, "-");
+		Helper.line(80, "-");
 	}
-
-	//================================= Option 1 View (CRUD - Read) =================================
-	public static String retrieveOrderBill(ArrayList<OrderBill> billList) {
+	//create view items
+	public static String retrieveItems(ArrayList<Items> itemList) {
 		String output = "";
+		
+		for (int i = 0; i < itemList.size(); i++) {
 
-		for (int i = 0; i < billList.size(); i++) {
-
-			output += String.format("%-10s %-20s %-10d %-10s %-20s %-20s\n", billList.get(i).getID(),
-					billList.get(i).getDate(), billList.get(i).getQuantity(),billList.get(i).getMeal(),
-					billList.get(i).getDrink(), billList.get(i).getFruit());
+			output += String.format("%-10s %-30s %-10s %-10.2fs\n", itemList.get(i).getItemID(),
+					itemList.get(i).getCategory(), itemList.get(i).getName(), itemList.get(i).getPrice());
 		}
 		return output;
 	}
-	public static void viewOrderBill(ArrayList<OrderBill> billList) {
-		C206_CaseStudy.setHeader("ORDER BILL");
-		String output = String.format("%-10s %-20s %-10d %-10s %-20s %-20s\n", "ID", "DATE",
-				"QUANTITY", "MEAL","DRINK", "FRUIT");
-		output += retrieveOrderBill(billList);	
+	
+	public static void viewItems(ArrayList<Items> itemList) {
+		C206_CaseStudy.setHeader("View Items");
+		String output = String.format("%-10s %-30s %-10s  %-10s\n", "ITEM ID", "CATEGORY",
+				"NAME", "PRICE");
+		 output += retrieveItems(itemList);	
 		System.out.println(output);
 	}
+	// create add items
+	public static Items inputItem() {
+		int itemID = Helper.readInt("Enter item ID > ");
+		String category = Helper.readString("Enter Item Category > ");
+		String name = Helper.readString("Enter Item Name > ");
+		double price = Helper.readDouble("Enter Item Price > ");
 
-	//================================= Option 2 Add (CRUD - Create)=================================
-	public static OrderBill inputOrderBill() {
-		String id = Helper.readString("Enter ID > ");
-		String date = Helper.readString("Enter date > ");
-		int quantity = Helper.readInt("Enter quantity > ");
-		String meal = Helper.readString("Enter meal > ");
-		String drink = Helper.readString("Enter drink > ");
-		String fruit = Helper.readString("Enter fruit > ");	
-
-		OrderBill e = new OrderBill(id, date, quantity, meal, drink, fruit);
-		return e;
+		Items item = new Items(itemID, category, name, price);
+		return item;
 		
 	}
-	public static void addOrderBill(ArrayList<OrderBill> billList, OrderBill e) {
-		
-		billList.add(e);
-		System.out.println("Order bill added!");
+	public static void addItem(ArrayList<Items> itemList, Items item){
+		itemList.add(item);
+		System.out.println("Item has been successfully added!");
 	}
 	
-	//================================= Option 3 Delete (CURD- Update) =================================
-	public static boolean doDeleteOrderBill(ArrayList<OrderBill> billList,String id) {
-		boolean isDeleted = false;
-		
-		String idToDelete = Helper.readString("Enter ID to delete > ");
-
-		for (int i = 0; i < billList.size(); i++) {
-			if (id.equals(idToDelete)) {
-				billList.remove(0);
-				isDeleted = true;
+	// create delete items
+	public static boolean searchID(ArrayList<Items> itemList, int itemID) {
+		for (int i = 0; i < itemList.size(); i++) {
+			if(itemID == itemList.get(i).getItemID()) {
+				return true;
 			}
 		}
-		return isDeleted;
+		return false;
+	}
+	
+	public static void deleteItem(ArrayList<Items> itemList){
+		// 
+		int itemID = Helper.readInt("Enter Menu ID to delete > ");
+		if(searchID(itemList, itemID)) {
+			for (int i = 0; i < itemList.size(); i++) {
+				if(itemID == itemList.get(i).getItemID()) {
+					itemList.remove(i);
+				}
+			}System.out.println("Menu Item ID"+ itemID + "has been successfully deleted!");
+		}
+		
 	}
 
-	public static void deleteOrderBill(ArrayList<OrderBill> billList, OrderBill e) {
-		billList.remove(e);
-		System.out.println("Order bill deleted!");
-	}
 }
-
