@@ -71,7 +71,7 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < billList.size(); i++) {
 
-			output += String.format("%-10s %-30s %-10s %-10s %-20d\n", billList.get(i).getID(),
+			output += String.format("%-10s %-20s %-10d %-10s %-20s %-20s\n", billList.get(i).getID(),
 					billList.get(i).getDate(), billList.get(i).getQuantity(),billList.get(i).getMeal(),
 					billList.get(i).getDrink(), billList.get(i).getFruit());
 		}
@@ -79,7 +79,7 @@ public class C206_CaseStudy {
 	}
 	public static void viewOrderBill(ArrayList<OrderBill> billList) {
 		C206_CaseStudy.setHeader("ORDER BILL");
-		String output = String.format("%-10s %-30s %-10s %-10s %-20s\n", "ID", "DATE",
+		String output = String.format("%-10s %-20s %-10d %-10s %-20s %-20s\n", "ID", "DATE",
 				"QUANTITY", "MEAL","DRINK", "FRUIT");
 		output += retrieveOrderBill(billList);	
 		System.out.println(output);
@@ -124,3 +124,4 @@ public class C206_CaseStudy {
 		System.out.println("Order bill deleted!");
 	}
 }
+

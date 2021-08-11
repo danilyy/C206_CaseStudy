@@ -74,8 +74,8 @@ public class C206_CaseStudyTest {
 		
 		//test if the expected output string same as the list of OrderBill retrieved from C206_CaseStudy	
 		retrieveBill= C206_CaseStudy.retrieveOrderBill(billList);
-		testOutput = String.format("%-10s %-30s %-10s %-10s %-20s\n","BB0101", "01-08-2021", 4,"Chicken Chop Rice","Lemon Tea","Watermelon");
-		testOutput += String.format("%-10s %-30s %-10s %-10s %-20s\n","BB0102", "11-08-2021", 3, "Chicken Noodle Soup", "Green Tea", "Orange");
+		testOutput = String.format("%-10s %-20s %-10d %-10s %-20s %-20s\n","BB0101", "01-08-2021", 4,"Chicken Chop Rice","Lemon Tea","Watermelon");
+		testOutput += String.format("%-10s %-20s %-10d %-10s %-20s %-20s\n","BB0102", "11-08-2021", 3, "Chicken Noodle Soup", "Green Tea", "Orange");
 	
 		assertEquals("Test that BillList", testOutput, retrieveBill);
 	}
@@ -84,9 +84,11 @@ public class C206_CaseStudyTest {
 	public void testDeleteOrderBill() {
 		// OrderBill list is not null, so that can delete OrderBill
 		assertNotNull("Test if there is valid OrderBill arraylist to delete to", billList);
+		C206_CaseStudy.deleteOrderBill (billList, bill1); 
 
 		// Given an empty list, after adding 2 OrderBill, the size of the list is 2
-		C206_CaseStudy.deleteOrderBill (billList, bill1);
+		billList.add(bill1);
+		billList.add(bill2);
 		assertEquals("Test if that OrderBill arraylist size is 2?", 2, billList.size());
 
 		// After removing, the size of the list is 1?
@@ -94,7 +96,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Test if that OrderBill arraylist size is 1?", 1, billList.size());
 
 		// Remove another OrderBill. test the list is empty
-		C206_CaseStudy.deleteOrderBill(billList, bill2);
+		billList.remove(0);
 		assertEquals("Test that OrderBill arraylist size is 0?", 0, billList.size());
 	}
 
