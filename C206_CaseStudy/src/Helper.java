@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Version for AY2013/14 Sem 2
 
 import java.util.*;
@@ -9,6 +10,18 @@ public class Helper {
   public static String readString(String prompt) {
     System.out.print(prompt);
     return scan.nextLine();
+=======
+package C209_L01;
+
+import java.util.*;
+
+public class Helper {
+
+  @SuppressWarnings("resource")
+  public static String readString(String prompt) {
+    System.out.print(prompt);
+    return new java.util.Scanner(System.in).nextLine();
+>>>>>>> branch 'master' of https://github.com/danilyy/C206_CaseStudy_Team2.git
   }
 
   public static int readInt(String prompt) {
