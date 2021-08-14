@@ -1,11 +1,3 @@
-/**
- * I declare that this code was written by me.
- * I will not copy or allow others to copy my code.
- * I understand that copying code is considered as plagiarism.
- *
- * 20009334, 11 Aug 2021 2:03:12 pm
- */
-
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -14,12 +6,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class C206_CaseStudyTest {
+//20044002, Anson.
 
-	private OrderBill bill1;
-	private OrderBill bill2;
+public class C206_CaseStudyTest {
+	private Menu JanMenu;
+	private Menu FebMenu;
+	private Menu MarMenu;
 	
-	private ArrayList<OrderBill> billList;
+	private ArrayList<Menu> MenuList;
 	
 	public C206_CaseStudyTest() {
 		super();
@@ -27,12 +21,12 @@ public class C206_CaseStudyTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		// prepare test data
-		//id, date, quantity, meal, drink, fruit
-		bill1 = new OrderBill("BB0101", "01-08-2021", 4,"Chicken Chop Rice","Lemon Tea","Watermelon");
-		bill2 = new OrderBill("BB0102", "11-08-2021", 3, "Chicken Noodle Soup", "Green Tea", "Orange");
-
-		billList= new ArrayList<OrderBill>();
+		//test data for viewMenu
+		JanMenu = new Menu("Jan", "Chicken Rice", "$5", "Coke");
+		FebMenu = new Menu("Feb", "Fish and Chips", "$6", "Sprite");
+		MarMenu = new Menu("Mar", "Fish Soup", "$4.50", "Milo");
+		
+		MenuList = new ArrayList<Menu>();
 	}
 
 	@After
@@ -40,64 +34,68 @@ public class C206_CaseStudyTest {
 	}
 	
 	@Test
-	public void testAddOrderBill() {
-		// OrderBill list is not null, so that can add a new OrderBill
-		assertNotNull("Test if there is valid OrderBill arraylist to add to", billList);
+	public void testAddMenu() {
+		// Menu list is not null, so that can add a new item
+		assertNotNull("Test if there is valid Camcorder arraylist to add to", MenuList);
 
-		// Given an empty list, after adding 1 OrderBill, the size of the list is 1
-		C206_CaseStudy.addOrderBill (billList, bill1);
-		assertEquals("Test if that OrderBill arraylist size is 1?", 1, billList.size());
+		// Given an empty list, after adding 1 item, the size of the list is 1
+		C206_CaseStudy.addMenu(MenuList, JanMenu);
+		assertEquals("Test if that Menu arraylist size is 1?", 1, MenuList.size());
 
-		// The OrderBill just added is as same as the first OrderBill of the list
-		assertSame("Test that OrderBill is added same as the 1st item of the list?", bill1, billList.get(0));
+		// The item just added is as same as the first item of the list
+		assertSame("Test that Menu is added same as 1st item of the list?", JanMenu, MenuList.get(0));
 
-		// Add another OrderBill. test the size of the list is 2?
-		C206_CaseStudy.addOrderBill(billList, bill2);
-		assertEquals("Test that OrderBill arraylist size is 2?", 2, billList.size());
-		assertSame("Test that OrderBill is added same as the 1st item of the list?", bill2, billList.get(0));
+		// Add another item. test The size of the list is 2?
+		C206_CaseStudy.addMenu(MenuList, FebMenu);
+		assertEquals("Test that Menu arraylist size is 2?", 2, MenuList.size());
+		assertSame("Test that Menu is added same as 1st item of the list?", FebMenu, MenuList.get(0));
+		
+		// Add another item. test The size of the list is 3?
+		C206_CaseStudy.addMenu(MenuList, MarMenu);
+		assertEquals("Test that Menu arraylist size is 3?", 3, MenuList.size());
+		assertSame("Test that Menu is added same as 1st item of the list?", MarMenu, MenuList.get(0));
 	}
 	
+	
 	@Test
-	public void testRetrieveAllOrderBill() {
-		// Test if OrderBill list is not null but empty
-		assertNotNull("Test if there is valid OrderBill arraylist to retrieve item", billList);
-		
-		//test if the list of OrderBill retrieved from the C206_CaseStudy is empty
-		String retrieveBill = C206_CaseStudy.retrieveOrderBill(billList);
+	public void testRetrieveMenu() {
+		// Test if Menu list is not null but empty, so that can add a new item
+		assertNotNull("Test if there is valid Menu arraylist to add to", MenuList);
+
+		// test if the list of Menu retrieved from C206_CaseStudy is empty
+		String retrieveMenu = C206_CaseStudy.retrieveMenu(MenuList);
 		String testOutput = "";
-		assertEquals("Check that BillList", testOutput, retrieveBill);
-		
-		//Given an empty list, after adding 2 OrderBills, test if the size of the list is 2
-		C206_CaseStudy.addOrderBill(billList, bill1);
-		C206_CaseStudy.addOrderBill(billList, bill2);
-		assertEquals("Test if OrderBill arraylist size is 2", 2, billList.size());
-		
-		//test if the expected output string same as the list of OrderBill retrieved from C206_CaseStudy	
-		retrieveBill= C206_CaseStudy.retrieveOrderBill(billList);
-		testOutput = String.format("%-10s %-20s %-10d %-10s %-20s %-20s\n","BB0101", "01-08-2021", 4,"Chicken Chop Rice","Lemon Tea","Watermelon");
-		testOutput += String.format("%-10s %-20s %-10d %-10s %-20s %-20s\n","BB0102", "11-08-2021", 3, "Chicken Noodle Soup", "Green Tea", "Orange");
-	
-		assertEquals("Test that BillList", testOutput, retrieveBill);
+		assertEquals("Check that Menulist", testOutput, retrieveMenu);
+
+		// Given an empty list, after adding 2 items, test if the size of the list is 2
+		C206_CaseStudy.addMenu(MenuList, JanMenu);
+		C206_CaseStudy.addMenu(MenuList, FebMenu);
+		assertEquals("Test if that Menu arraylist size is 2?", 2, MenuList.size());
+
+		// test if the expected output string same as the list of menu retrieved
+		// from C206_CaseStudy
+		retrieveMenu = C206_CaseStudy.retrieveMenu(MenuList);
+
+		testOutput = String.format("%-20s %-20s %-20s %-20s\\n", "Jan", "Chicken Rice", "$5", "Coke");
+		testOutput += String.format("%-20s %-20s %-20s %-20s\\n", "Feb", "Fish and Chips", "$6", "Sprite");
+
+		assertEquals("Check that ViewAllCamcorderlist", testOutput, retrieveMenu);
+
 	}
 	
 	@Test
-	public void testDeleteOrderBill() {
-		// OrderBill list is not null, so that can delete OrderBill
-		assertNotNull("Test if there is valid OrderBill arraylist to delete to", billList);
-		C206_CaseStudy.deleteOrderBill (billList, bill1); 
+	public void testDeleteMenu() {
+		// Test if Menu list is not null but empty, so that an item could be deleted
+		assertNotNull("Test if there is valid Menu arraylist to be deleted", MenuList);
 
-		// Given an empty list, after adding 2 OrderBill, the size of the list is 2
-		billList.add(bill1);
-		billList.add(bill2);
-		assertEquals("Test if that OrderBill arraylist size is 2?", 2, billList.size());
+		// test if the list of Menu retrieved from C206_CaseStudy is empty
+		String retrieveMenu = C206_CaseStudy.retrieveMenu(MenuList);
+		String testOutput = "";
+		assertEquals("Check that Menulist", testOutput, retrieveMenu);
 
-		// After removing, the size of the list is 1?
-		C206_CaseStudy.deleteOrderBill (billList, bill2);
-		assertEquals("Test if that OrderBill arraylist size is 1?", 1, billList.size());
-
-		// Remove another OrderBill. test the list is empty
-		billList.remove(0);
-		assertEquals("Test that OrderBill arraylist size is 0?", 0, billList.size());
+		// Test that given an array list, after deleting 1 menu, if the size of the list is 0
+		C206_CaseStudy.deleteMenu(MenuList);
+		assertEquals("Test if that Menu arraylist size is 0?", 0, MenuList.size());
 	}
 
 	@Test
